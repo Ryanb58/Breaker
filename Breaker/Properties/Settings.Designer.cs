@@ -22,5 +22,29 @@ namespace Breaker.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1800000")]
+        public int Interval {
+            get {
+                return ((int)(this["Interval"]));
+            }
+            set {
+                this["Interval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("It\'s time to stand up and stretch!")]
+        public string MainMessage {
+            get {
+                return ((string)(this["MainMessage"]));
+            }
+            set {
+                this["MainMessage"] = value;
+            }
+        }
     }
 }
