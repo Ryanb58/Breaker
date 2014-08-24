@@ -46,5 +46,16 @@ namespace Breaker.Properties {
                 this["MainMessage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection ActiveDays {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ActiveDays"]));
+            }
+            set {
+                this["ActiveDays"] = value;
+            }
+        }
     }
 }

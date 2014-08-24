@@ -40,6 +40,7 @@
             this.btnCancelSave = new System.Windows.Forms.Button();
             this.minutes = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.ActiveDays = new System.Windows.Forms.CheckedListBox();
             this.sysTrayContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minutes)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,7 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(15, 99);
+            this.btnSaveSettings.Location = new System.Drawing.Point(12, 230);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSaveSettings.TabIndex = 2;
@@ -98,12 +99,13 @@
             // 
             // btnCancelSave
             // 
-            this.btnCancelSave.Location = new System.Drawing.Point(110, 99);
+            this.btnCancelSave.Location = new System.Drawing.Point(113, 230);
             this.btnCancelSave.Name = "btnCancelSave";
             this.btnCancelSave.Size = new System.Drawing.Size(75, 23);
             this.btnCancelSave.TabIndex = 3;
             this.btnCancelSave.Text = "Cancel";
             this.btnCancelSave.UseVisualStyleBackColor = true;
+            this.btnCancelSave.Click += new System.EventHandler(this.btnCancelSave_Click);
             // 
             // minutes
             // 
@@ -121,11 +123,29 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Minutes:";
             // 
+            // ActiveDays
+            // 
+            this.ActiveDays.FormattingEnabled = true;
+            this.ActiveDays.Items.AddRange(new object[] {
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"});
+            this.ActiveDays.Location = new System.Drawing.Point(15, 86);
+            this.ActiveDays.Name = "ActiveDays";
+            this.ActiveDays.Size = new System.Drawing.Size(170, 124);
+            this.ActiveDays.TabIndex = 6;
+            this.ActiveDays.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ActiveDays_ItemCheck);
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(217, 159);
+            this.ClientSize = new System.Drawing.Size(200, 265);
+            this.Controls.Add(this.ActiveDays);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.minutes);
             this.Controls.Add(this.btnCancelSave);
@@ -159,6 +179,7 @@
         private System.Windows.Forms.Button btnCancelSave;
         private System.Windows.Forms.NumericUpDown minutes;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckedListBox ActiveDays;
     }
 }
 

@@ -16,6 +16,8 @@ namespace Breaker
         Settings settings = new Settings();
         Utility utility = new Utility();
 
+        bool enableItemCheck = false;
+
         public MainPage()
         {
             InitializeComponent();
@@ -23,11 +25,28 @@ namespace Breaker
 
         private void MainPage_Load(object sender, EventArgs e)
         {
+            //Set max values
             minutes.Maximum = 59;
             minutes.Minimum = 1;
 
+            //Load up the visable data for the UI.
             timerMain.Interval = settings.LoadInterval();
             minutes.Value = utility.miliSecondsToMinutes(settings.LoadInterval());
+
+            //Load up the saved Active Days.
+            var savedActiveDays = settings.LoadActiveDays();
+            foreach(string day in savedActiveDays)
+            {
+                int index = ActiveDays.Items.IndexOf(day);
+
+                if (index > 0)
+                {
+                    ActiveDays.SetItemChecked(index, true);
+                }
+            }
+
+            enableItemCheck = true;
+
         }
 
         private void MainPage_Resize(object sender, EventArgs e)
@@ -97,7 +116,14 @@ namespace Breaker
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            
+            //Save the days of the week.
+            //var items = ActiveDays.Items;
+            //foreach(var item in items)
+            //{
+            //    if()
+            //}
+
+            //Save Minute Value.
             timerMain.Interval = utility.minutesToMiliseconds(Convert.ToInt32(minutes.Value.ToString()));
             settings.SaveInterval(Convert.ToInt32(minutes.Value));
 
@@ -116,6 +142,30 @@ namespace Breaker
             timerMain.Dispose();
             sysTrayContextMenu.Dispose();
             sysTrayIcon.Dispose();
+            Application.Exit();
+        }
+
+        private void ActiveDays_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (enableItemCheck == true)
+            {
+                if (e.NewValue == CheckState.Checked)
+                {
+                    //settings.SaveActiveDays
+                    //listBox1.Items.Add(checkedListBox1.Text);
+                    settings.SaveActiveDay(e.CurrentValue.ToString());
+                }
+
+                else if (e.NewValue == CheckState.Unchecked)
+                {
+                    //listBox1.Items.Remove(checkedListBox1.Text);
+                    settings.RemoveActiveDay(e.CurrentValue.ToString());
+                }
+            }
+        }
+
+        private void btnCancelSave_Click(object sender, EventArgs e)
+        {
             Application.Exit();
         } 
     }

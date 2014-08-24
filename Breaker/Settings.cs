@@ -30,5 +30,22 @@ namespace Breaker
         {
             return Properties.Settings.Default["MainMessage"].ToString();
         }
+
+        public void SaveActiveDay(string day)
+        {
+            Properties.Settings.Default.ActiveDays.Add(day);
+            Properties.Settings.Default.Save();
+        }
+
+        public void RemoveActiveDay(string day)
+        {
+            Properties.Settings.Default.ActiveDays.Remove(day);
+            Properties.Settings.Default.Save();
+        }
+
+        public System.Collections.Specialized.StringCollection LoadActiveDays()
+        {
+            return Properties.Settings.Default.ActiveDays;
+        }
     }
 }

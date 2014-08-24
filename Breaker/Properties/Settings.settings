@@ -8,5 +8,8 @@
     <Setting Name="MainMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">It's time to stand up and stretch!</Value>
     </Setting>
+    <Setting Name="ActiveDays" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
