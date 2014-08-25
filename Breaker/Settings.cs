@@ -16,7 +16,7 @@ namespace Breaker
 
         public int LoadInterval()
         {
-            return Convert.ToInt32(Properties.Settings.Default["Interval"]);
+            return Properties.Settings.Default.Interval;
         }
 
         //Load and Save MainMessage

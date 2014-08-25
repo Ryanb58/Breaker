@@ -10,6 +10,14 @@ namespace Breaker
         public int miliSecondsToMinutes(int miliSeconds)
         {
             int minutes = ( miliSeconds / 1000 ) / 60;
+            if (minutes < 1)
+            {
+                minutes = 1;
+            }
+            else if (minutes > 59)
+            {
+                minutes = 59;
+            }
             return minutes;
         }
 

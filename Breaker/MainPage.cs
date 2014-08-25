@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,15 @@ namespace Breaker
 
         private void MainPage_Load(object sender, EventArgs e)
         {
+            try {
             //Set max values
             minutes.Maximum = 59;
             minutes.Minimum = 1;
 
             //Load up the visable data for the UI.
-            timerMain.Interval = settings.LoadInterval();
-            minutes.Value = utility.miliSecondsToMinutes(settings.LoadInterval());
+            int interval = settings.LoadInterval();
+            timerMain.Interval = interval;
+            minutes.Value = utility.miliSecondsToMinutes(interval);
 
             //Load up the saved Active Days.
             var savedActiveDays = settings.LoadActiveDays();
@@ -46,6 +49,11 @@ namespace Breaker
             }
 
             enableItemCheck = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -111,7 +119,20 @@ namespace Breaker
 
         private void timerMain_Tick(object sender, EventArgs e)
         {
-            MessageBox.Show(settings.LoadMainMessage());
+            bool showMessage = false;
+
+            foreach (string day in settings.LoadActiveDays())
+            {
+                if (day == DateTime.Now.ToString("dddd"))
+                {
+                    showMessage = true;
+                }
+            }
+
+            if (showMessage == true)
+            {
+                MessageBox.Show(settings.LoadMainMessage());
+            }
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -123,9 +144,9 @@ namespace Breaker
             //    if()
             //}
 
-            //Save Minute Value.
+            //Save Minute Value in miliseconds.
             timerMain.Interval = utility.minutesToMiliseconds(Convert.ToInt32(minutes.Value.ToString()));
-            settings.SaveInterval(Convert.ToInt32(minutes.Value));
+            settings.SaveInterval(utility.minutesToMiliseconds(Convert.ToInt32(minutes.Value)));
 
             //Start the timer.
             timerMain.Start();
@@ -166,6 +187,9 @@ namespace Breaker
 
         private void btnCancelSave_Click(object sender, EventArgs e)
         {
+            timerMain.Dispose();
+            sysTrayContextMenu.Dispose();
+            sysTrayIcon.Dispose();
             Application.Exit();
         } 
     }
